@@ -5,6 +5,9 @@ Created on 2018/10/31
 @author: xing yan
 """
 
-import os
+from mako.template import Template
 
-os.popen("")
+
+mytemplate = Template("hello ${name}")
+
+print(mytemplate.render(name="jack"))
