@@ -5,9 +5,13 @@ Created on 2018/10/31
 @author: xing yan
 """
 
-from mako.template import Template
+a={'a':1,'b':2,'c':3}
 
+def fn(**kw):
+    print(kw)
 
-mytemplate = Template("hello ${name}")
+    for k,v in kw.items():
+        print('{}={}'.format(k,v))
 
-print(mytemplate.render(name="jack"))
+print()
+print()
