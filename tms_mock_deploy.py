@@ -62,12 +62,12 @@ class MockDeploy:
                    'tms-mock-remote': ['tms-mock-client', 'tms-mock-dao', 'tms-mock-service', 'tms-mock-remote']
                    }
 
-    def __init__(self, workspace, app_name, tms_ip, remove_providers=None, mock_svn_url='trunk'):
+    def __init__(self, workspace, app_name, tms_ip, required_providers=None, mock_svn_url='trunk'):
 
         self.workspace = workspace
         self.app_name = app_name
         self.tms_ip = tms_ip
-        self.remove_providers = remove_providers
+        self.required_providers = required_providers
         self.mock_svn_url = mock_svn_url if mock_svn_url != 'trunk' else MOCK_SVN_PATH
 
     def execute(self):
@@ -139,10 +139,10 @@ class MockDeploy:
         provider_xml = []
         abs_provider_xml_dir = os.path.join(self.MOCK_BASE_PATH, self.MOCK_DIR, self.PROVIDER_XML_DIR)
 
-        if self.remove_providers:
+        if self.required_providers:
             return
 
-        for provider in self.remove_providers:
+        for provider in self.required_providers:
             provider_xml.append(all_provider_xml.get(provider))
 
         for xml in provider_xml:
@@ -241,16 +241,16 @@ if __name__ == '__main__':
     workspace: job空间
     app_name：应用名称
     tms_ip： 部署环境IP
-    remove_providers: 需要移除的服务
+    required_providers: 需要移除的服务
     mock_svn_url： mock svn path
     """
     workspace = r'F:\svn\test'
     app_name = 'tms-mock-remote'
     tms_ip = '192.168.221.123'
-    remove_providers = ''
+    required_providers = ''
     mock_svn_url = 'trunk'
 
     print("job请求参数：", sys.argv)
-    mockd = MockDeploy(workspace, app_name, tms_ip, remove_providers, mock_svn_url)
+    mockd = MockDeploy(workspace, app_name, tms_ip, required_providers, mock_svn_url)
     mockd.execute()
 
